@@ -1,0 +1,74 @@
+<!-- 顶部导航 -->
+<div class="navbar navbar-fixed-top main-nav" role="navigation">
+    <div class="container">
+        <p-growl [(value)]="msgs"></p-growl>
+        <div class="navbar-header">
+            <button #button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse" (click)="toggle(button)">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a routerLink="posts" class="navbar-brand navbar-brand-my">
+                Blog
+            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-responsive-collapse" aria-expanded="false">
+            <ul class="nav navbar-nav">
+                <li routerLinkActive="active" class="dropdown">
+                    <a routerLink="posts">{{'app.articles' | translate}}</a>
+                </li>
+                <li class="dropdown">
+                    <a routerLink="echart">集成图表</a>
+                </li>
+                <li class="dropdown">
+                    <a routerLink="map">高德地图</a>
+                </li>
+                <li class="dropdown">
+                    <a routerLink="jsplumb">集成jsplumb</a>
+                </li>
+                <li class="dropdown">
+                    <a href="http://git.oschina.net/mumu-osc/NiceFish" data-toggle="dropdown" class="dropdown-toggle" target="_blank">NiceFish</a>
+                </li>
+                <li class="dropdown">
+                    <a href="http://git.oschina.net/zt_zhong/CodeBe" data-toggle="dropdown" class="dropdown-toggle" target="_blank">CodeBe</a>
+                </li>
+            </ul>
+            <ul *ngIf="!currentUser?.userName" class="nav navbar-nav navbar-right">
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="login">{{'app.login' | translate}}</a>
+                </li>
+                <li routerLinkActive="active">
+                    <a routerLink="register">{{'app.register' | translate}}</a>
+                </li>
+            </ul>
+            <ul *ngIf="currentUser?.userName" class="nav navbar-nav navbar-right">
+                <li routerLinkActive="active">
+                    <a routerLink="user">{{'app.welcome' | translate}}：{{currentUser?.userName}}</a>
+                </li>
+                <li routerLinkActive="active">
+                    <a routerLink="manage">{{'app.console' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" (click)="doLogout()">{{'app.logout' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 主体内容区域 -->
+<div class="container main-container">
+    <nz-root>
+        <router-outlet></router-outlet>
+    </nz-root>
+</div>
+<!-- 底部区域 -->
+<div class="footer bs-footer">
+    <div class="container">
+        <div class="row">
+            <p>
+                <a href="https://github.com/jinggk/object-prototype" target="_blank">who am i?</a>
+            </p>
+        </div>
+    </div>
+</div>
