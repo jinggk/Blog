@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {NzNotificationService} from 'ng-zorro-antd';
+import {NzNotificationService,NZ_NOTIFICATION_CONFIG} from 'ng-zorro-antd';
 
 @Injectable()
 export class NotifyService {

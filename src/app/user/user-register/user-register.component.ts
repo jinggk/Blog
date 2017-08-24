@@ -46,13 +46,8 @@ export class UserRegisterComponent implements OnInit {
     'confirmPassword': {
       'required': '重复密码必须输入。',
       'minlength': '密码至少要8位。',
-      'validateEqual': "两次输入的密码不一致。"
-    },
-    'vcode': {
-      'required': '验证码必须输入。',
-      'minlength': '4位验证码',
-      'maxlength': '4位验证码'
-    },
+      'validateEqual': '两次输入的密码不一致'
+    }
   };
 
   constructor(public fb: FormBuilder,
@@ -67,7 +62,7 @@ export class UserRegisterComponent implements OnInit {
 
   buildForm(): void {
     this.userForm = this.fb.group({
-      "userName": [
+      'userName': [
         this.userInfo.userName,
         [
           Validators.required,
@@ -75,7 +70,7 @@ export class UserRegisterComponent implements OnInit {
           Validators.maxLength(32)
         ]
       ],
-      "nickName": [
+      'nickName': [
         this.userInfo.nickName,
         [
           Validators.required,
@@ -83,38 +78,33 @@ export class UserRegisterComponent implements OnInit {
           Validators.maxLength(32)
         ]
       ],
-      "email": [
+      'email': [
         this.userInfo.email,
         [
           Validators.required,
-          Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$")
+          Validators.pattern('^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$')
         ]
       ],
-      "password": [
+      'password': [
         this.userInfo.password,
         [
           Validators.required,
           Validators.minLength(8),
         ]
       ],
-      "confirmPassword": [
+      'confirmPassword': [
         this.userInfo.confirmPassword,
         [
           Validators.required,
           Validators.minLength(8)
         ]
-      ],
-      "vcode": [
-        this.userInfo.vcode,
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ]
       ]
     });
     this.userForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
+      .subscribe(data => {
+        this.onValueChanged(data);
+        console.log(this.userForm.valid);
+      });
     this.onValueChanged();
   }
 
@@ -138,32 +128,15 @@ export class UserRegisterComponent implements OnInit {
   doRegister() {
     if (this.userForm.valid) {
       this.userInfo = this.userForm.value;
-      this.userRegisterService.register(this.userInfo)
-        .subscribe(
-          data => {
-            this.router.navigateByUrl("home");
-          },
-          error => {
-            this.formErrors.formError = error.message;
-            console.error(error);
-          }
-        );
+      this.userRegisterService.register(this.userInfo);
     } else {
-      this.formErrors.formError = "存在不合法的输入项，请检查。";
+      this.formErrors.formError = '存在不合法的输入项，请检查。';
     }
     console.log(this.userInfo);
   }
 
   testEmail() {
-    let email = this.userForm.get("email").value;
-    this.userRegisterService.testEmail(email)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.error(error);
-        }
-      )
+    let email = this.userForm.get('email').value;
+    this.userRegisterService.testEmail(email);
   }
 }

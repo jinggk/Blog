@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { TranslateModule } from 'ng2-translate';
+import { NZ_NOTIFICATION_CONFIG } from 'ng-zorro-antd';
 
 import { UserLoginComponent } from '../user/user-login/user-login.component';
 import { UserInfoComponent } from '../user/user-info/user-info.component';
@@ -27,7 +28,8 @@ import {EvBusService} from './service/ev-bus/ev-bus.service';
   providers:[
     HttpService,
     NotifyService,
-    EvBusService
+    EvBusService,
+    {provide: NZ_NOTIFICATION_CONFIG, useValue: { nzTop: '60px' }}
   ],
   exports:[
   	CommonModule,
